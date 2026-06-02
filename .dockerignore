@@ -5,6 +5,8 @@
 .vscode/
 .idea/
 .git/
+.env
+.env.*
 **/*.user
 **/*.suo
 **/*.cache
