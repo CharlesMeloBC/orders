@@ -13,7 +13,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: src/Orders.Api/Dockerfile
+      dockerfile: src/ECommerce.API/Dockerfile
     container_name: orders-api
     environment:
       ASPNETCORE_ENVIRONMENT: "Development"
