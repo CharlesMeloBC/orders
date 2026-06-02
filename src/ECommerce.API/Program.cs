@@ -2,6 +2,8 @@ using ECommerce.API.Endpoints;
 using ECommerce.API.Middlewares;
 using ECommerce.Application;
 using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 LoadDotEnvIfPresent();
 
@@ -16,6 +18,8 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
+await ApplyDatabaseMigrationsAsync(app);
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 if (app.Environment.IsDevelopment())
@@ -28,6 +32,41 @@ app.MapHealthEndpoints();
 app.MapOrderEndpoints();
 
 app.Run();
+
+static async Task ApplyDatabaseMigrationsAsync(WebApplication app)
+{
+    const int maxAttempts = 60;
+    var delay = TimeSpan.FromSeconds(2);
+
+    await using var scope = app.Services.CreateAsyncScope();
+    var db = scope.ServiceProvider.GetRequiredService<OrdersDbContext>();
+    var logger = scope.ServiceProvider
+        .GetRequiredService<ILoggerFactory>()
+        .CreateLogger("DatabaseMigration");
+
+    for (var attempt = 1; attempt <= maxAttempts; attempt++)
+    {
+        try
+        {
+            logger.LogInformation("Applying database migrations. Attempt {Attempt}/{MaxAttempts}.", attempt, maxAttempts);
+
+            var strategy = db.Database.CreateExecutionStrategy();
+            await strategy.ExecuteAsync(async () => await db.Database.MigrateAsync(app.Lifetime.ApplicationStopping));
+
+            logger.LogInformation("Database migrations applied successfully.");
+            return;
+        }
+        catch (Exception ex) when (attempt < maxAttempts)
+        {
+            logger.LogWarning(
+                ex,
+                "Database migration failed. Waiting {DelaySeconds} seconds before retrying.",
+                delay.TotalSeconds);
+
+            await Task.Delay(delay, app.Lifetime.ApplicationStopping);
+        }
+    }
+}
 
 static void LoadDotEnvIfPresent()
 {

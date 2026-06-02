@@ -9,6 +9,12 @@ services:
       - "1433:1433"
     volumes:
       - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "timeout 1 bash -c '</dev/tcp/localhost/1433' || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
 
   api:
     build:
@@ -21,7 +27,8 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - sqlserver
+      sqlserver:
+        condition: service_healthy
 
 volumes:
   sqlserver_data:

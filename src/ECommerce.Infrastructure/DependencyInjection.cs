@@ -18,7 +18,9 @@ public static class DependencyInjection
         }
 
         services.AddDbContext<OrdersDbContext>(options =>
-            options.UseSqlServer(connectionString));
+            options.UseSqlServer(
+                connectionString,
+                sql => sql.EnableRetryOnFailure()));
 
         services.AddScoped<IBuyerRepository, EfBuyerRepository>();
         services.AddScoped<IProductRepository, EfProductRepository>();
