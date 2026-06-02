@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Orders.Application.Abstractions;
 using Orders.Infrastructure.Persistence;
+using Orders.Infrastructure.Persistence.Repositories;
 
 namespace Orders.Infrastructure;
 
@@ -17,6 +19,10 @@ public static class DependencyInjection
 
         services.AddDbContext<OrdersDbContext>(options =>
             options.UseSqlServer(connectionString));
+
+        services.AddScoped<IBuyerRepository, EfBuyerRepository>();
+        services.AddScoped<IProductRepository, EfProductRepository>();
+        services.AddScoped<IOrderRepository, EfOrderRepository>();
 
         return services;
     }

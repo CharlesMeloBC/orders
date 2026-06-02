@@ -32,7 +32,7 @@ public sealed class Order
     public Guid BuyerId { get; private set; }
     public OrderStatus Status { get; private set; }
     public DateTime CreatedAtUtc { get; private set; }
-    public IReadOnlyCollection<OrderItem> Items => _items.AsReadOnly();
+    public IReadOnlyCollection<OrderItem> Items => _items;
 
     public static Order Create(Guid buyerId, IEnumerable<OrderItem> items)
     {
