@@ -3,7 +3,10 @@ using ECommerce.API.Middlewares;
 using ECommerce.Application;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 LoadDotEnvIfPresent();
 
@@ -11,6 +14,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(AuthEndpoints.GetJwtSecret(builder.Configuration)))
+        };
+    });
+builder.Services.AddAuthorization();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHealthChecks();
@@ -21,6 +37,8 @@ var app = builder.Build();
 await ApplyDatabaseMigrationsAsync(app);
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -29,6 +47,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapHealthEndpoints();
+app.MapAuthEndpoints();
 app.MapOrderEndpoints();
 
 app.Run();

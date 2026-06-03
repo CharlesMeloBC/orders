@@ -12,25 +12,30 @@ public sealed class Product
     {
         if (id == Guid.Empty)
         {
-            throw new DomainException("Product Id não pode ser vazio.");
+            throw new DomainException("Product Id cannot be empty.");
         }
 
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new DomainException("Product Name é obrigatório.");
+            throw new DomainException("Product Name is required.");
         }
 
         if (price <= 0)
         {
-            throw new DomainException("Product Price deve ser maior que zero.");
+            throw new DomainException("Product Price must be greater than zero.");
         }
 
         Id = id;
         Name = name.Trim();
         Price = price;
+        CreatedAtUtc = DateTime.UtcNow;
+        UpdatedAtUtc = CreatedAtUtc;
     }
 
     public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
     public decimal Price { get; private set; }
+    public DateTime CreatedAtUtc { get; private set; }
+    public DateTime UpdatedAtUtc { get; private set; }
+    public DateTime? DeletedAtUtc { get; private set; }
 }

@@ -18,13 +18,13 @@ public sealed class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery
 
     public async Task<OrderResponse> Handle(GetOrderByIdQuery query, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(query.Id, includeItems: true, cancellationToken);
+        var order = await _orderRepository.GetByIdAsync(query.Id, query.BuyerId, includeItems: true, cancellationToken);
         if (order is null)
         {
             throw new NotFoundException("Order not found.");
         }
 
-        var buyer = await _buyerRepository.GetByIdAsync(order.BuyerId, cancellationToken);
+        var buyer = await _buyerRepository.GetByIdAsync(query.BuyerId, cancellationToken);
         if (buyer is null)
         {
             throw new NotFoundException("Buyer not found for this order.");

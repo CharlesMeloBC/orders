@@ -19,5 +19,6 @@ public sealed class OrdersDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(OrdersDbContext).Assembly);
+        modelBuilder.Entity<Order>().HasQueryFilter(x => x.DeletedAtUtc == null);
     }
 }

@@ -27,7 +27,7 @@ public sealed class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderComma
     {
         ValidateUpdate(command.Request);
 
-        var order = await _orderRepository.GetByIdAsync(command.Id, includeItems: true, cancellationToken);
+        var order = await _orderRepository.GetByIdAsync(command.Id, command.BuyerId, includeItems: true, cancellationToken);
         if (order is null)
         {
             throw new NotFoundException("Order not found.");
@@ -47,15 +47,22 @@ public sealed class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderComma
         }
 
         order.UpdateItems(items);
-        await _orderRepository.SaveChangesAsync(cancellationToken);
+        try
+        {
+            await _orderRepository.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception ex) when (ex.GetType().Name == "DbUpdateConcurrencyException")
+        {
+            throw new NotFoundException("Order not found or has been modified.");
+        }
 
-        var persistedOrder = await _orderRepository.GetByIdAsync(order.Id, includeItems: true, cancellationToken);
+        var persistedOrder = await _orderRepository.GetByIdAsync(order.Id, command.BuyerId, includeItems: true, cancellationToken);
         if (persistedOrder is null)
         {
             throw new NotFoundException("Order not found after update.");
         }
 
-        var buyer = await _buyerRepository.GetByIdAsync(persistedOrder.BuyerId, cancellationToken);
+        var buyer = await _buyerRepository.GetByIdAsync(command.BuyerId, cancellationToken);
         if (buyer is null)
         {
             throw new NotFoundException("Buyer not found for this order.");

@@ -14,24 +14,27 @@ public sealed class Order
     {
         if (id == Guid.Empty)
         {
-            throw new DomainException("Order Id não pode ser vazio.");
+            throw new DomainException("Order Id cannot be empty.");
         }
 
         if (buyerId == Guid.Empty)
         {
-            throw new DomainException("Order BuyerId não pode ser vazio.");
+            throw new DomainException("Order BuyerId cannot be empty.");
         }
 
         Id = id;
         BuyerId = buyerId;
         Status = OrderStatus.Initiated;
         CreatedAtUtc = DateTime.UtcNow;
+        UpdatedAtUtc = CreatedAtUtc;
     }
 
     public Guid Id { get; private set; }
     public Guid BuyerId { get; private set; }
     public OrderStatus Status { get; private set; }
     public DateTime CreatedAtUtc { get; private set; }
+    public DateTime UpdatedAtUtc { get; private set; }
+    public DateTime? DeletedAtUtc { get; private set; }
     public IReadOnlyCollection<OrderItem> Items => _items;
 
     public static Order Create(Guid buyerId, IEnumerable<OrderItem> items)
@@ -49,6 +52,7 @@ public sealed class Order
         }
 
         ReplaceItems(items);
+        UpdatedAtUtc = DateTime.UtcNow;
     }
 
     public void Process()
@@ -59,6 +63,7 @@ public sealed class Order
         }
 
         Status = OrderStatus.Processed;
+        UpdatedAtUtc = DateTime.UtcNow;
     }
 
     public void Cancel()
@@ -69,6 +74,8 @@ public sealed class Order
         }
 
         Status = OrderStatus.Cancelled;
+        DeletedAtUtc = DateTime.UtcNow;
+        UpdatedAtUtc = DeletedAtUtc.Value;
     }
 
     public void Send()
@@ -79,6 +86,7 @@ public sealed class Order
         }
 
         Status = OrderStatus.Shipped;
+        UpdatedAtUtc = DateTime.UtcNow;
     }
 
     private void ReplaceItems(IEnumerable<OrderItem> items)

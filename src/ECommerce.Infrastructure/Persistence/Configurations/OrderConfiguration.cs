@@ -26,7 +26,15 @@ internal sealed class OrderConfiguration : IEntityTypeConfiguration<Order>
             .IsRequired();
 
         builder.Property(x => x.CreatedAtUtc)
+            .HasColumnName("createdAt")
             .IsRequired();
+
+        builder.Property(x => x.UpdatedAtUtc)
+            .HasColumnName("updatedAt")
+            .IsRequired();
+
+        builder.Property(x => x.DeletedAtUtc)
+            .HasColumnName("deletedAt");
 
         builder.HasMany(x => x.Items)
             .WithOne()

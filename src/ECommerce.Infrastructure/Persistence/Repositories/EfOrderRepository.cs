@@ -13,7 +13,7 @@ internal sealed class EfOrderRepository : IOrderRepository
         _dbContext = dbContext;
     }
 
-    public async Task<Order?> GetByIdAsync(Guid id, bool includeItems, CancellationToken cancellationToken)
+    public async Task<Order?> GetByIdAsync(Guid id, Guid buyerId, bool includeItems, CancellationToken cancellationToken)
     {
         IQueryable<Order> query = _dbContext.Orders;
 
@@ -24,23 +24,19 @@ internal sealed class EfOrderRepository : IOrderRepository
                 .ThenInclude(x => x.Product);
         }
 
-        return await query.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await query.FirstOrDefaultAsync(x => x.Id == id && x.BuyerId == buyerId, cancellationToken);
     }
 
-    public async Task<List<Order>> ListAsync(OrderStatus? status, Guid? buyerId, CancellationToken cancellationToken)
+    public async Task<List<Order>> ListAsync(Guid buyerId, OrderStatus? status, CancellationToken cancellationToken)
     {
         IQueryable<Order> query = _dbContext.Orders
             .Include(x => x.Items)
-            .ThenInclude(x => x.Product);
+            .ThenInclude(x => x.Product)
+            .Where(x => x.BuyerId == buyerId);
 
         if (status is not null)
         {
             query = query.Where(x => x.Status == status);
-        }
-
-        if (buyerId is not null)
-        {
-            query = query.Where(x => x.BuyerId == buyerId);
         }
 
         return await query

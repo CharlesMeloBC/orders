@@ -18,27 +18,28 @@ public sealed class CancelOrderCommandHandler : IRequestHandler<CancelOrderComma
 
     public async Task<OrderResponse> Handle(CancelOrderCommand command, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.GetByIdAsync(command.Id, includeItems: true, cancellationToken);
+        var order = await _orderRepository.GetByIdAsync(command.Id, command.BuyerId, includeItems: true, cancellationToken);
         if (order is null)
         {
             throw new NotFoundException("Order not found.");
         }
 
         order.Cancel();
-        await _orderRepository.SaveChangesAsync(cancellationToken);
-
-        var persistedOrder = await _orderRepository.GetByIdAsync(order.Id, includeItems: true, cancellationToken);
-        if (persistedOrder is null)
+        try
         {
-            throw new NotFoundException("Order not found after cancellation.");
+            await _orderRepository.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception ex) when (ex.GetType().Name == "DbUpdateConcurrencyException")
+        {
+            throw new NotFoundException("Order not found or has been modified.");
         }
 
-        var buyer = await _buyerRepository.GetByIdAsync(persistedOrder.BuyerId, cancellationToken);
+        var buyer = await _buyerRepository.GetByIdAsync(command.BuyerId, cancellationToken);
         if (buyer is null)
         {
             throw new NotFoundException("Buyer not found for this order.");
         }
 
-        return OrderResponseMapper.Map(persistedOrder, buyer);
+        return OrderResponseMapper.Map(order, buyer);
     }
 }

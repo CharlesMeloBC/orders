@@ -8,7 +8,7 @@ using MediatR;
 
 namespace ECommerce.Application.Orders.Handlers;
 
-public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, OrderResponse>
+public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, CreateOrderResponse>
 {
     private readonly IBuyerRepository _buyerRepository;
     private readonly IProductRepository _productRepository;
@@ -24,13 +24,17 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
         _orderRepository = orderRepository;
     }
 
-    public async Task<OrderResponse> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
+    public async Task<CreateOrderResponse> Handle(CreateOrderCommand command, CancellationToken cancellationToken)
     {
         var request = command.Request;
         ValidateCreate(request);
 
-        var buyer = new Buyer(Guid.NewGuid(), request.BuyerName);
-        _buyerRepository.Add(buyer);
+        var buyer = await _buyerRepository.GetByIdAsync(command.BuyerId, cancellationToken);
+        if (buyer is null)
+        {
+            buyer = new Buyer(command.BuyerId, command.BuyerName);
+            _buyerRepository.Add(buyer);
+        }
 
         var items = new List<OrderItem>(request.Products.Count);
         foreach (var productRequest in request.Products)
@@ -49,23 +53,18 @@ public sealed class CreateOrderCommandHandler : IRequestHandler<CreateOrderComma
         _orderRepository.Add(order);
         await _orderRepository.SaveChangesAsync(cancellationToken);
 
-        var persistedOrder = await _orderRepository.GetByIdAsync(order.Id, includeItems: true, cancellationToken);
+        var persistedOrder = await _orderRepository.GetByIdAsync(order.Id, buyer.Id, includeItems: true, cancellationToken);
         if (persistedOrder is null)
         {
             throw new NotFoundException("Order not found after creation.");
         }
 
-        return OrderResponseMapper.Map(persistedOrder, buyer);
+        return OrderResponseMapper.MapCreate(persistedOrder, buyer);
     }
 
     private static void ValidateCreate(CreateOrderRequest request)
     {
         var errors = new Dictionary<string, string[]>();
-
-        if (string.IsNullOrWhiteSpace(request.BuyerName))
-        {
-            errors["buyerName"] = ["buyerName is required."];
-        }
 
         if (request.Products is null || request.Products.Count == 0)
         {

@@ -3,4 +3,4 @@ using MediatR;
 
 namespace ECommerce.Application.Orders;
 
-public sealed record CancelOrderCommand(Guid Id) : IRequest<OrderResponse>;
+public sealed record CancelOrderCommand(Guid BuyerId, Guid Id) : IRequest<OrderResponse>;
