@@ -3,4 +3,4 @@ using MediatR;
 
 namespace ECommerce.Application.Orders;
 
-public sealed record CreateOrderCommand(CreateOrderRequest Request) : IRequest<OrderResponse>;
+public sealed record CreateOrderCommand(Guid BuyerId, string BuyerName, CreateOrderRequest Request) : IRequest<CreateOrderResponse>;

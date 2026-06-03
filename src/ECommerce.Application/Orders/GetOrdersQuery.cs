@@ -1,6 +1,7 @@
 using ECommerce.Application.DTOs;
+using ECommerce.Domain.Orders;
 using MediatR;
 
 namespace ECommerce.Application.Orders;
 
-public sealed record GetOrdersQuery(string? Status, Guid? BuyerId) : IRequest<List<OrderResponse>>;
+public sealed record GetOrdersQuery(Guid BuyerId, OrderStatus? Status) : IRequest<List<OrderResponse>>;

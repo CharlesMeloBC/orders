@@ -15,5 +15,16 @@ internal sealed class BuyerConfiguration : IEntityTypeConfiguration<Buyer>
         builder.Property(x => x.Name)
             .HasMaxLength(200)
             .IsRequired();
+
+        builder.Property(x => x.CreatedAtUtc)
+            .HasColumnName("createdAt")
+            .IsRequired();
+
+        builder.Property(x => x.UpdatedAtUtc)
+            .HasColumnName("updatedAt")
+            .IsRequired();
+
+        builder.Property(x => x.DeletedAtUtc)
+            .HasColumnName("deletedAt");
     }
 }

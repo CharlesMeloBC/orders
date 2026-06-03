@@ -12,18 +12,23 @@ public sealed class Buyer
     {
         if (id == Guid.Empty)
         {
-            throw new DomainException("Buyer Id não pode ser vazio.");
+            throw new DomainException("Buyer Id cannot be empty.");
         }
 
         if (string.IsNullOrWhiteSpace(name))
         {
-            throw new DomainException("Buyer Name é obrigatório.");
+            throw new DomainException("Buyer Name is required.");
         }
 
         Id = id;
         Name = name.Trim();
+        CreatedAtUtc = DateTime.UtcNow;
+        UpdatedAtUtc = CreatedAtUtc;
     }
 
     public Guid Id { get; private set; }
     public string Name { get; private set; } = string.Empty;
+    public DateTime CreatedAtUtc { get; private set; }
+    public DateTime UpdatedAtUtc { get; private set; }
+    public DateTime? DeletedAtUtc { get; private set; }
 }

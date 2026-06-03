@@ -19,5 +19,16 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Price)
             .HasColumnType("decimal(18,2)")
             .IsRequired();
+
+        builder.Property(x => x.CreatedAtUtc)
+            .HasColumnName("createdAt")
+            .IsRequired();
+
+        builder.Property(x => x.UpdatedAtUtc)
+            .HasColumnName("updatedAt")
+            .IsRequired();
+
+        builder.Property(x => x.DeletedAtUtc)
+            .HasColumnName("deletedAt");
     }
 }
