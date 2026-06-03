@@ -1,6 +1,7 @@
 using ECommerce.Application.Exceptions;
 using ECommerce.Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace ECommerce.API.Middlewares;
 
@@ -19,6 +20,26 @@ public sealed class ExceptionHandlingMiddleware : IMiddleware
             {
                 Status = StatusCodes.Status400BadRequest,
                 Title = "Validation error"
+            });
+        }
+        catch (JsonException)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Invalid request body",
+                Detail = "The request body has invalid JSON or uses an unsupported number format. Use '.' as the decimal separator."
+            });
+        }
+        catch (BadHttpRequestException)
+        {
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Invalid request body",
+                Detail = "The request body could not be parsed."
             });
         }
         catch (NotFoundException ex)
