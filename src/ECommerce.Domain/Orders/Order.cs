@@ -74,6 +74,16 @@ public sealed class Order
         }
 
         Status = OrderStatus.Cancelled;
+        UpdatedAtUtc = DateTime.UtcNow;
+    }
+
+    public void Delete()
+    {
+        if (DeletedAtUtc is not null)
+        {
+            throw new DomainException("Order has already been deleted.");
+        }
+
         DeletedAtUtc = DateTime.UtcNow;
         UpdatedAtUtc = DeletedAtUtc.Value;
     }

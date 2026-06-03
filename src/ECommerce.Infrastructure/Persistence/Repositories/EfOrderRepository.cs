@@ -49,6 +49,18 @@ internal sealed class EfOrderRepository : IOrderRepository
         _dbContext.Orders.Add(order);
     }
 
+    public void AddItems(IEnumerable<OrderItem> items)
+    {
+        _dbContext.OrderItems.AddRange(items);
+    }
+
+    public Task RemoveItemsByOrderIdAsync(Guid orderId, CancellationToken cancellationToken)
+    {
+        return _dbContext.OrderItems
+            .Where(x => x.OrderId == orderId)
+            .ExecuteDeleteAsync(cancellationToken);
+    }
+
     public Task SaveChangesAsync(CancellationToken cancellationToken)
     {
         return _dbContext.SaveChangesAsync(cancellationToken);

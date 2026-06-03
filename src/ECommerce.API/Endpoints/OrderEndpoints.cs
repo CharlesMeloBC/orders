@@ -56,7 +56,29 @@ public static class OrderEndpoints
             return Results.Ok(response);
         });
 
-        group.MapDelete("/{id:guid}", async (Guid id, ClaimsPrincipal user, ISender sender, CancellationToken ct) =>
+        group.MapPost("/{id:guid}/process", async (Guid id, ClaimsPrincipal user, ISender sender, CancellationToken ct) =>
+        {
+            if (!TryGetBuyer(user, out var buyerId, out _))
+            {
+                return Results.Unauthorized();
+            }
+
+            var response = await sender.Send(new ProcessOrderCommand(buyerId, id), ct);
+            return Results.Ok(response);
+        });
+
+        group.MapPost("/{id:guid}/ship", async (Guid id, ClaimsPrincipal user, ISender sender, CancellationToken ct) =>
+        {
+            if (!TryGetBuyer(user, out var buyerId, out _))
+            {
+                return Results.Unauthorized();
+            }
+
+            var response = await sender.Send(new ShipOrderCommand(buyerId, id), ct);
+            return Results.Ok(response);
+        });
+
+        group.MapPost("/{id:guid}/cancel", async (Guid id, ClaimsPrincipal user, ISender sender, CancellationToken ct) =>
         {
             if (!TryGetBuyer(user, out var buyerId, out _))
             {
@@ -65,6 +87,17 @@ public static class OrderEndpoints
 
             var response = await sender.Send(new CancelOrderCommand(buyerId, id), ct);
             return Results.Ok(response);
+        });
+
+        group.MapDelete("/{id:guid}", async (Guid id, ClaimsPrincipal user, ISender sender, CancellationToken ct) =>
+        {
+            if (!TryGetBuyer(user, out var buyerId, out _))
+            {
+                return Results.Unauthorized();
+            }
+
+            await sender.Send(new DeleteOrderCommand(buyerId, id), ct);
+            return Results.NoContent();
         });
 
         return app;
