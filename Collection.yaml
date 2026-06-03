@@ -1,0 +1,503 @@
+type: collection.insomnia.rest/5.0
+name: My Collection
+meta:
+  id: wrk_e4fb6924b10b4bddb73bf5aff2a99716
+  created: 1743907238849
+  modified: 1743907238849
+collection:
+  - name: MoneyMaster
+    meta:
+      id: fld_1f85e5af1b1a481abd648598770e351d
+      created: 1755735378905
+      modified: 1777232368216
+      sortKey: -1755735378905
+    children:
+      - name: Organization
+        meta:
+          id: fld_328d733188064c7f954b04c901baec96
+          created: 1755974869197
+          modified: 1765323329024
+          sortKey: -1755974869197
+      - name: Company
+        meta:
+          id: fld_679c295067d747c7bb7d12d9f78d5481
+          created: 1756585528118
+          modified: 1777232374103
+          sortKey: -1756585528118
+      - name: Account
+        meta:
+          id: fld_af98c8f432314932bd063626af90366b
+          created: 1757191565695
+          modified: 1762633898336
+          sortKey: -1757191565695
+      - name: Charge
+        meta:
+          id: fld_c1f93419c86d4592b7c4b480dc25a59a
+          created: 1759356243031
+          modified: 1777548378964
+          sortKey: -1759356243031
+      - name: Webhook
+        meta:
+          id: fld_7c5ed58f1ba64d699320daa808f13c38
+          created: 1760294523379
+          modified: 1765329532882
+          sortKey: -1760294523379
+      - name: BankSlip
+        meta:
+          id: fld_98e907f098354a539e920977fdd3b7a5
+          created: 1761440789527
+          modified: 1765329578580
+          sortKey: -1761440789527
+      - name: Transfer
+        meta:
+          id: fld_0a603ce4ac9e4bc58edd2974600e3054
+          created: 1762387748068
+          modified: 1765329609331
+          sortKey: -1762387748068
+  - name: DelfinanceHML
+    meta:
+      id: fld_591109b0cfcf42a1ad76ae2c741b7576
+      created: 1763239162889
+      modified: 1777433982727
+      sortKey: -1763239162889
+  - name: Sale Master
+    meta:
+      id: fld_aea34fb418f24a5d9677d8f4defd324f
+      created: 1772248054683
+      modified: 1772248054683
+      sortKey: -1772248054683
+  - name: Nota Master
+    meta:
+      id: fld_a67f8cde6aaa4f7fbeda5f7b0009f847
+      created: 1773183032824
+      modified: 1776141786654
+      sortKey: -1773183032825
+  - name: protech
+    meta:
+      id: fld_cf8b9528644d440ca67c9f741cf5dede
+      created: 1780449088518
+      modified: 1780449088518
+      sortKey: -1780449088518
+    children:
+      - url: http://localhost:8080/api/v1/orders
+        name: Orders
+        meta:
+          id: req_9bc5819242de41c7a6cd121b6de6fa11
+          created: 1780449091004
+          modified: 1780459103743
+          isPrivate: false
+          sortKey: -1780449091004
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_326cfbae50b64214ae05af8783f07616
+          - id: pair_87e44c223f784ba897d03011b36c670f
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NTk1MDF9.t5SmaR_4yuSVQIiziv6jVqxF6JrhaMz7bcDihMun1yk
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/v1/orders
+        name: CreateOrder
+        meta:
+          id: req_5e4d6368e8504b98a1ef02093977c1b0
+          created: 1780449099420
+          modified: 1780458947655
+          isPrivate: false
+          sortKey: -1780449091104
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "products": [
+                {
+                  "name": "Mouse",
+                  "price": 20,
+                  "quantity": 2
+                }
+              ]
+            }
+        headers:
+          - name: accept
+            value: "*/*"
+            id: pair_745ab426b20c405186590f3aeb18a3bb
+          - name: Content-Type
+            value: application/json
+            id: pair_8dbb5721fad749378861028de3025933
+          - id: pair_07d8387135bc4e3f8ca92480e4ae44b0
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NTk1MDF9.t5SmaR_4yuSVQIiziv6jVqxF6JrhaMz7bcDihMun1yk
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/v1/orders/c0b00e96-b72e-46c3-aad0-7d6ca41f926d
+        name: EditOrder
+        meta:
+          id: req_8a6a22ebac484c1d9a480fab4c393b58
+          created: 1780452721915
+          modified: 1780458759126
+          isPrivate: false
+          sortKey: -1780452721915
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "products": [
+                {
+                  "name": "Produto B52",
+                  "price": 50,
+                  "quantity": 2
+                }
+              ]
+            }
+        parameters:
+          - id: pair_fa162d0a943a45e195b5deead8ecb20f
+            name: id
+            value: c0b00e96-b72e-46c3-aad0-7d6ca41f926d
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_c171265cedfd4079ada19e4162d8359f
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_2e39a1d3481c4dca885c4a56f434da1b
+          - id: pair_ade90a123cb9445e901ec5a3fcdbc4db
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NjUwNDd9.7DKiHXNxZspOIl5NM4kcCZtMKZdWaExGcj5sA2pwi8g
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/v1/auth/token
+        name: Authentication
+        meta:
+          id: req_a944b1da598340dc9f848adff6d492ae
+          created: 1780452735502
+          modified: 1780457341317
+          isPrivate: false
+          sortKey: -1780452722015
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+               "name": "Charles",
+               "document": "30030030030"
+             }
+        headers:
+          - name: accept
+            value: "*/*"
+          - name: Content-Type
+            value: application/json
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/v1/orders/:id
+        name: OrderById
+        meta:
+          id: req_1614e3c5d8db470b96183f524e4ffed2
+          created: 1780455303651
+          modified: 1780459182130
+          isPrivate: false
+          sortKey: -1779670337600
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_326cfbae50b64214ae05af8783f07616
+          - id: pair_87e44c223f784ba897d03011b36c670f
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NTk1MDF9.t5SmaR_4yuSVQIiziv6jVqxF6JrhaMz7bcDihMun1yk
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+        pathParameters:
+          - name: id
+            value: 40c39abe-d653-40aa-ab7f-5472d98fad44
+      - url: http://localhost:8080/api/v1/orders/c0b00e96-b72e-46c3-aad0-7d6ca41f926d/process
+        name: ProcessOrder
+        meta:
+          id: req_04a2e3c7af7541eab31f18368c71105b
+          created: 1780457189226
+          modified: 1780457223506
+          isPrivate: false
+          sortKey: -1779280960898
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_326cfbae50b64214ae05af8783f07616
+          - id: pair_87e44c223f784ba897d03011b36c670f
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NjAxMzV9.jI2qXYyOuKyDhn1VgjzOO8BKj4cpYp5DzBHExujusNE
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8080/api/v1/orders/:id/ship
+        name: ShipOrder
+        meta:
+          id: req_39fff137edd749b297463d805e57f91e
+          created: 1780457244496
+          modified: 1780458894294
+          isPrivate: false
+          sortKey: -1779086272547
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_326cfbae50b64214ae05af8783f07616
+          - id: pair_87e44c223f784ba897d03011b36c670f
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NjAxMzV9.jI2qXYyOuKyDhn1VgjzOO8BKj4cpYp5DzBHExujusNE
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+        pathParameters:
+          - name: id
+      - url: http://localhost:8080/api/v1/orders/:id/cancel
+        name: CancelOrder
+        meta:
+          id: req_c98cee8404064b0f876a6f4dae149337
+          created: 1780458824362
+          modified: 1780459238118
+          isPrivate: false
+          sortKey: -1778988928371.5
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_326cfbae50b64214ae05af8783f07616
+          - id: pair_87e44c223f784ba897d03011b36c670f
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NjAxMzV9.jI2qXYyOuKyDhn1VgjzOO8BKj4cpYp5DzBHExujusNE
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+        pathParameters:
+          - name: id
+            value: bab324b6-7099-4f9c-8d14-5d1c89099ea6
+      - url: http://localhost:8080/api/v1/orders/:id
+        name: DeleteOrder
+        meta:
+          id: req_261964f7a30d4065930eb1cddd1a4552
+          created: 1780458976264
+          modified: 1780459214331
+          isPrivate: false
+          sortKey: -1780450906509.5
+        method: DELETE
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "products": [
+                {
+                  "name": "Produto B52",
+                  "price": 50,
+                  "quantity": 2
+                }
+              ]
+            }
+        parameters:
+          - id: pair_fa162d0a943a45e195b5deead8ecb20f
+            name: id
+            value: c0b00e96-b72e-46c3-aad0-7d6ca41f926d
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_c171265cedfd4079ada19e4162d8359f
+          - name: User-Agent
+            value: insomnia/11.0.2
+            id: pair_2e39a1d3481c4dca885c4a56f434da1b
+          - id: pair_ade90a123cb9445e901ec5a3fcdbc4db
+            name: Authorization
+            value: Bearer
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjE0YzAyN2UwLWFlNWMtODkxOC1jOTk1LTllZmYzMmExMGI4ZCIsImJ1eWVySWQiOiIxNGMwMjdlMC1hZTVjLTg5MTgtYzk5NS05ZWZmMzJhMTBiOGQiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiQ2hhcmxlcyIsImRvY3VtZW50IjoiMzAwMzAwMzAwMzAiLCJleHAiOjE3ODA0NjUwNDd9.7DKiHXNxZspOIl5NM4kcCZtMKZdWaExGcj5sA2pwi8g
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+        pathParameters:
+          - name: id
+            value: c0b00e96-b72e-46c3-aad0-7d6ca41f926d
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_b1099c3fc4488c03fc5467ab415711c42f734967
+    created: 1743907238858
+    modified: 1778548101521
+  cookies:
+    - key: gvc
+      value: MTc0ODAyNjY2MjMyNzY0MzI4NDczMzE5NDcxNjk0OTAyMjM4NjA2
+      domain: www.dropbox.com
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-11-15T17:23:56.933Z
+      lastAccessed: 2025-11-15T17:23:56.933Z
+      sameSite: none
+      id: ad1afbb2-972b-42c4-9f0b-e207745a478e
+    - key: t
+      value: hV1MjbcczAr6oiT3yfiXQrP9
+      domain: dropbox.com
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: false
+      creation: 2025-11-15T17:23:56.934Z
+      lastAccessed: 2025-11-15T17:23:56.934Z
+      sameSite: none
+      id: 6eabbdcb-974e-41bb-aad1-c737f45c2d89
+    - key: __Host-js_csrf
+      value: hV1MjbcczAr6oiT3yfiXQrP9
+      domain: www.dropbox.com
+      path: /
+      secure: true
+      hostOnly: true
+      creation: 2025-11-15T17:23:56.937Z
+      lastAccessed: 2025-11-15T17:23:56.937Z
+      sameSite: none
+      id: 61605280-9b2e-4e1c-8201-902509cfb563
+    - key: __Host-ss
+      value: 9TNWU4xWRE
+      domain: www.dropbox.com
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-11-15T17:23:56.937Z
+      lastAccessed: 2025-11-15T17:23:56.937Z
+      sameSite: strict
+      id: cce47b10-4cf2-4189-919c-46c0f1066c32
+    - key: locale
+      value: pt_BR
+      domain: dropbox.com
+      path: /
+      hostOnly: false
+      creation: 2025-11-15T17:23:56.937Z
+      lastAccessed: 2025-11-15T17:23:56.937Z
+      id: f8d368fa-5b3d-464e-97bf-793797368614
+    - key: reflXTZ2b
+      value: MDZhM2VkNTRjODdmNTE3OTA2MmJjYWM1OTQwMWFlNjg2YjFiYzI2NzdjN2FkZDUzMWM0ODgzNGIxM2I2YzFjNxrtpA5%2Bzvbsrl3WQXuxYD28XQ0mdEgNR9i0NRXMibJYsTdrTlCmCgilervHG8xSvERJbmibpHy%2FEA%2FAwk6A6HI%3D
+      maxAge: 300
+      domain: oii.la
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-11-15T17:37:19.701Z
+      lastAccessed: 2025-11-15T17:37:19.701Z
+      id: 1b80d0b5-f3fe-4590-b4aa-9994c199c0c6
+    - key: app_visitor
+      value: Q2FrZQ%3D%3D.YjI2OTMxYWFjODViMTRmOTdlMDQ0N2JmNzU3Y2Y1ZDlhMDJkOGU2ZGIyYzQ0MzhmOTE1ZjhkMzg5NjM0YTUwMHudeeZ6RFb5YbNBJYSY5xhdqWWTIB%2FB6GQYIW81kFkdvTtLVGE0Aufe%2FTqmJ5v5gPxVD7%2BYLKSVeAYW4lZey%2BRFJ%2FZtKItNsiBkDCwbFz9V
+      maxAge: 86400
+      domain: oii.la
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
+      creation: 2025-11-15T17:37:19.701Z
+      lastAccessed: 2025-11-15T17:37:19.701Z
+      id: 2c7e82ee-3069-4f0c-ac56-0c375270938e
+    - key: SPC_SI
+      value: Rv3uaQAAAABpbWdTRzA3OZy81gEAAAAAakRtZldmelg=
+      maxAge: 86400
+      domain: shopee.com.br
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: false
+      creation: 2026-05-12T01:04:40.211Z
+      lastAccessed: 2026-05-12T01:08:21.521Z
+      id: 26d87451-e999-4db3-8baa-88ac5ea9313d
+    - key: SPC_SEC_SI
+      value: v1-aW8zdmpWZDNhOGMyMDdZNLM0UQArzvP/k+t/W/h10WrGYIhx5I5NbnMb+Pfzt01iSA6ZWXhOQ+ybgX9umOxd7K4jCq8uitsIMJcOZWMyJEU=
+      maxAge: 86700
+      domain: seller.shopee.com.br
+      path: /
+      secure: true
+      httpOnly: true
+      hostOnly: true
+      creation: 2026-05-12T01:07:52.862Z
+      lastAccessed: 2026-05-12T01:07:52.862Z
+      id: 57618d58-cba4-4b12-8e1d-24b7d9eea7fb
+environments:
+  name: env
+  meta:
+    id: env_b1099c3fc4488c03fc5467ab415711c42f734967
+    created: 1743907238855
+    modified: 1778813017414
+    isPrivate: false
+  data:
+    variables:
+      local: https://localhost:7240
+      localSale: https://localhost:5001
+      docker: http://localhost:5004
+      api: 127.0.0.1:8086
+      nota: 127.0.0.1:8185
+      nota_local: http://localhost:3310/v1
+      gateWay: https://money-master-webhooks-dev.salemaster.app.br
+      sale-hml: https://api-dev.salemaster.app.br

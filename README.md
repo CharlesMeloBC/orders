@@ -70,6 +70,16 @@ Healthy
 dotnet test Orders.sln
 ```
 
+## Collection
+
+Para facilitar os testes manuais, o projeto inclui uma collection do Insomnia na raiz do repositório:
+
+```text
+Collection.yaml
+```
+
+Importe esse arquivo no Insomnia e ajuste o ambiente para apontar para a API local antes de executar os requests.
+
 ## Autenticação
 
 Os endpoints de pedidos exigem Bearer Token.
