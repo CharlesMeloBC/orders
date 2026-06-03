@@ -27,7 +27,7 @@ public sealed class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderComma
     {
         ValidateUpdate(command.Request);
 
-        var order = await _orderRepository.GetByIdAsync(command.Id, command.BuyerId, includeItems: true, cancellationToken);
+        var order = await _orderRepository.GetByIdAsync(command.Id, command.BuyerId, includeItems: false, cancellationToken);
         if (order is null)
         {
             throw new NotFoundException("Order not found.");
@@ -46,7 +46,9 @@ public sealed class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderComma
                 unitPrice: productRequest.Price));
         }
 
+        await _orderRepository.RemoveItemsByOrderIdAsync(order.Id, cancellationToken);
         order.UpdateItems(items);
+        _orderRepository.AddItems(items);
         try
         {
             await _orderRepository.SaveChangesAsync(cancellationToken);
